@@ -17,10 +17,35 @@ public class LoanCalcViewController implements Initializable   {
 	
 	@FXML
 	private TextField LoanAmount;
-
 	
 	@FXML
-	private Label lblTotalPayemnts;
+	private TextField InterestRate;
+	
+	@FXML
+	private TextField NbrOfYears;
+
+	@FXML
+	private TextField AdditionalPayment;
+	
+	
+	@FXML
+	private Label lblLoanAmount;
+	
+	@FXML
+	private Label lblNbrOfYears;
+	
+	@FXML
+	private Label lblPaymentStartDate;	
+	
+	@FXML
+	private Label lblAdditionalPayment;
+	
+	@FXML
+	private Label lblTotalPayments;
+	
+	@FXML
+	private Label lblTotalInterest;
+	
 	
 	@FXML
 	private DatePicker PaymentStartDate;
@@ -48,7 +73,7 @@ public class LoanCalcViewController implements Initializable   {
 		double dLoanAmount = Double.parseDouble(LoanAmount.getText());
 		System.out.println("Amount: " + dLoanAmount);	
 		
-		lblTotalPayemnts.setText("123");
+		lblTotalPayments.setText("123");
 		
 		LocalDate localDate = PaymentStartDate.getValue();
 	 
