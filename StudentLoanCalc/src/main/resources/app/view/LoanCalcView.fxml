@@ -70,8 +70,7 @@
                     </rowConstraints>
                      <children>
                         <Label fx:id="lblTotalPayments" text="Total Payments" />
-                        <Label text="Total Interest" GridPane.rowIndex="1" />
-                        <Label fx:id="lblTotalPayemnts" prefHeight="18.0" prefWidth="174.0" GridPane.columnIndex="1" />
+                        <Label fx:id="lblTotalInterest" text="Total Interest" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
