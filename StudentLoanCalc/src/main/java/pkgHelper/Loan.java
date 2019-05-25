@@ -47,7 +47,7 @@ public class Loan {
 		int numberOfPayments = 12 * iTerm;
 		double monthlyInterestRate = dInterestRate / 12.0;
 		double iTerm = Math.pow(1+monthlyInterestRate, numberOfPayments);
-		double payment = dLoanAmount * ((monthlyInterestRate * iTerm) / (iTerm -1));
+		double payment = dLoanAmount * ((monthlyInterestRate * iTerm) / (iTerm - 1));
 		
 		LocalDate paymentDate = dueDate;
 		double loanBalance = dLoanAmount;
@@ -71,7 +71,7 @@ public class Loan {
 			}
 			
 			loanPayments.add(new Payment(month, paymentDate, monthlyInterestPayment, 
-					monthlyPrinciplePayment, loanBalance));
+					monthlyPrinciplePayment, dExtraPayment, loanBalance));
 			
 			//Update payment date 
 			paymentDate = paymentDate.plusMonths(1);

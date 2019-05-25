@@ -71,16 +71,18 @@
                      <children>
                         <Label fx:id="lblTotalPayments" text="Total Payments" />
                         <Label fx:id="lblTotalInterest" text="Total Interest" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTotalPaymentAmount" text="N/A" GridPane.columnIndex="1" />
+                        <Label fx:id="lblTotalInterestAmount" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
             </HBox>
             <HBox prefHeight="231.0" prefWidth="651.0">
                <children>
-                  <TableView prefHeight="231.0" prefWidth="815.0">
+                  <TableView fx:id="paymentView" prefHeight="231.0" prefWidth="815.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Payment #" />
-                      <TableColumn prefWidth="114.0" text="Due Date" />
+                      <TableColumn fx:id="tcPaymentNbr" prefWidth="75.0" text="Payment #" />
+                      <TableColumn fx:id="tcDueDate" prefWidth="114.0" text="Due Date" />
                         <TableColumn prefWidth="85.0" text="Payment" />
                         <TableColumn prefWidth="140.0" text="Additonal Payment" />
                         <TableColumn prefWidth="148.0" text="Interest" />

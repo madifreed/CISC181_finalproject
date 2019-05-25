@@ -2,15 +2,21 @@ package app.controller;
 
 import app.StudentCalc;
 import pkgHelper.Loan;
+import pkgHelper.Payment;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.DatePicker;
 
 public class LoanCalcViewController implements Initializable   {
 
@@ -29,10 +35,8 @@ public class LoanCalcViewController implements Initializable   {
 	@FXML
 	private TextField AdditionalPayment;
 	
-	
 	@FXML
 	private DatePicker PaymentStartDate;
-	
 	
 	@FXML
 	private Label lblLoanAmount;
@@ -50,18 +54,52 @@ public class LoanCalcViewController implements Initializable   {
 	private Label lblTotalPayments;
 	
 	@FXML
-	private Label lblTotalInterest;
-
+	public Label lblTotalInterest;
 	
+	@FXML
+	public Label lblTotalPaymentAmount;
+	
+	@FXML
+	private Label lblTotalInterestAmount;
+	
+	@FXML
+	private TableView<Payment> paymentView;
+	
+	@FXML
+	private TableColumn<Payment, Integer> tcPaymentNbr;
+
+	@FXML
+	private TableColumn<Payment, LocalDate> tcDueDate;
+	
+	@FXML
+	private TableColumn<Payment, Double> tcPayment;
+	
+	@FXML
+	private TableColumn<Payment, Double> tcAdditionalPayment;
+	
+	@FXML
+	private TableColumn<Payment, Double> tcInterest;
+	
+	@FXML
+	private TableColumn<Payment, Double> tcPrinciple;
+	
+	@FXML
+	private TableColumn<Payment, Double> tcBalance;
+	
+	
+	private final ObservableList<Payment> payments = FXCollections.observableArrayList();
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		lblTotalPaymentAmount.setVisible(false);
+		lblTotalInterestAmount.setVisible(false);
+//		paymentView.setEditable(false);
 	}
 
 	public void setMainApp(StudentCalc sc) {
 		this.SC = sc;
-	}
+	} 
 	
 	/**
 	 * btnCalcLoan - Fire this event when the button clicks
@@ -71,12 +109,17 @@ public class LoanCalcViewController implements Initializable   {
 	 */
 	@FXML
 	private void btnCalcLoan(ActionEvent event) {
-
-//		System.out.println("Amount: " + LoanAmount.getText());
+		
+		if ((LoanAmount.getText() == null) || (InterestRate.getText() == null) || 
+				(NbrOfYears.getText() == null) || (AdditionalPayment.getText() == null) ||
+				(PaymentStartDate.getValue() == null)) {
+			return;
+		}
+		
 		double dLoanAmount = Double.parseDouble(LoanAmount.getText());
 		System.out.println("Amount: " + dLoanAmount);	
 
-		double dInterestRate = Double.parseDouble(InterestRate.getText());
+		double dInterestRate = Double.parseDouble(InterestRate.getText()) / 100.0;
 		System.out.println("Amount: " + dInterestRate);
 		
 		int iNbrOfYears = Integer.parseInt(NbrOfYears.getText());
@@ -87,12 +130,32 @@ public class LoanCalcViewController implements Initializable   {
 		
 		LocalDate dueDate = PaymentStartDate.getValue();
 		System.out.println(dueDate); 
+
+//		System.out.println("Amount: " + LoanAmount.getText());
+
 		
-//		final Loan loan = new Loan(dLoanAmount, dInterestRate, iNbrOfYears, 
-//				dAdditionalPayment, dueDate);
+		Loan loan = new Loan(dLoanAmount, dInterestRate, iNbrOfYears, 
+				dAdditionalPayment, dueDate);
 		
-//		String totalInterestPaid = Double.toString(loan.getTotalInterestPaid());
-//		lblTotalInterest.setText(totalInterestPaid);;
+		
+		payments.setAll(loan.getLoanPayments());
+		
+		String totalPaymentsMade = Integer.toString(loan.getTotalPaymentsMade());
+		lblTotalPaymentAmount.setVisible(true);
+		lblTotalPaymentAmount.setText(totalPaymentsMade);
+		
+		String totalInterestPaid = Double.toString(loan.getTotalInterestPaid());
+		lblTotalInterestAmount.setVisible(true);
+		lblTotalInterestAmount.setText(totalInterestPaid);
+		
+		
+		tcPaymentNbr.setCellValueFactory(
+				new PropertyValueFactory<Payment, Integer>("iPaymentId"));
+		tcDueDate.setCellValueFactory(
+				new PropertyValueFactory<Payment, LocalDate>("dueDate"));
+		
+		paymentView.setItems(payments);
 		
 	}
+	
 }
