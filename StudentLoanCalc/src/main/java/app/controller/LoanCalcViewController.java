@@ -128,9 +128,7 @@ public class LoanCalcViewController implements Initializable   {
 		System.out.println("Additional Payment: " + dAdditionalPayment);
 		
 		LocalDate dueDate = PaymentStartDate.getValue();
-		System.out.println(dueDate); 
-
-//		System.out.println("Amount: " + LoanAmount.getText());
+		System.out.println(dueDate);
 
 		
 		Loan loan = new Loan(dLoanAmount, dInterestRate, iNbrOfYears, 

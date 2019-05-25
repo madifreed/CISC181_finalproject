@@ -1,6 +1,10 @@
 package pkgHelper;
 
 import java.time.LocalDate;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 public class Payment {
 	private int iPaymentId;
@@ -100,4 +104,41 @@ public class Payment {
 	}
 	
 
+	
+    public IntegerProperty iPaymentIdProperty() {
+        IntegerProperty ip = new SimpleIntegerProperty();
+        ip.setValue(iPaymentId);
+        return ip;
+    }
+    
+    public DoubleProperty dMonthlyPaymentProperty() {
+    	DoubleProperty dp = new SimpleDoubleProperty();
+    	dp.setValue(dMonthlyPayment);
+    	return dp;
+    }
+	
+    public DoubleProperty dInterestPaymentProperty() {
+    	DoubleProperty dp = new SimpleDoubleProperty();
+    	dp.setValue(dInterestPayment);
+    	return dp;
+    }
+    
+    public DoubleProperty dPrinciplePaymentProperty() {
+    	DoubleProperty dp = new SimpleDoubleProperty();
+    	dp.setValue(dPrinciplePayment);
+    	return dp;
+    }
+    
+    public DoubleProperty dExtraPaymentProperty() {
+    	DoubleProperty dp = new SimpleDoubleProperty();
+    	dp.setValue(dExtraPayment);
+    	return dp;
+    }
+    
+    public DoubleProperty dBalanceProperty() {
+    	DoubleProperty dp = new SimpleDoubleProperty();
+    	dp.setValue(dBalance);
+    	return dp;
+    }
+    
 }
