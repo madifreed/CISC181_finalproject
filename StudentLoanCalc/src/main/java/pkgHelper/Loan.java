@@ -15,13 +15,11 @@ public class Loan {
 	double dLoanAmount = 0.0;
 	double dInterestRate = 0.0;
 	int iTerm = 0;
-//	double dFutureValue;
-//	boolean bInterestCalc;
+	private LocalDate dueDate = LocalDate.now();
 	double dExtraPayment = 0.0;
 	
 	private double dTotalInterestPaid = 0.0;
-	private LocalDate dueDate = LocalDate.now();
-	private int iTotalPaymentsMade = 0;
+	private double dTotalPayments = 0.0;
 	
 	private LinkedList<Payment> loanPayments = new LinkedList<>();
 
@@ -52,6 +50,7 @@ public class Loan {
 		LocalDate paymentDate = dueDate;
 		double loanBalance = dLoanAmount;
 		int month = 0;
+		
 		while ((month < numberOfPayments) && (loanBalance > 0.0)) {
 			// Calculate monthly interest
 			double monthlyPayment = payment + dExtraPayment;
@@ -59,6 +58,7 @@ public class Loan {
 			double monthlyPrinciplePayment = monthlyPayment - monthlyInterestPayment;
 			
 			dTotalInterestPaid += monthlyInterestPayment;
+			dTotalPayments += monthlyPayment;
 			
 			//Update loan balance
 			if (monthlyPayment > loanBalance)
@@ -70,8 +70,9 @@ public class Loan {
 				loanBalance -= monthlyPrinciplePayment;
 			}
 			
-			loanPayments.add(new Payment(month, paymentDate, monthlyInterestPayment, 
+			loanPayments.add(new Payment(month, paymentDate, payment, monthlyInterestPayment, 
 					monthlyPrinciplePayment, dExtraPayment, loanBalance));
+			
 			
 			//Update payment date 
 			paymentDate = paymentDate.plusMonths(1);
@@ -79,7 +80,8 @@ public class Loan {
 			month++;
 		}
 		
-		iTotalPaymentsMade = loanPayments.size();
+		dTotalPayments = Math.round(dTotalPayments * 100.0) / 100.0;
+		dTotalInterestPaid = Math.round(dTotalInterestPaid * 100.0) / 100.0;
 	}
 	
 
@@ -123,20 +125,20 @@ public class Loan {
 		this.dueDate = dueDate;
 	}
 
-	public double getTotalInterestPaid() {
+	public double getdTotalInterestPaid() {
 		return dTotalInterestPaid;
 	}
 
-	public void setTotalInterestPaid(double totalInterestPaid) {
-		this.dTotalInterestPaid = totalInterestPaid;
+	public void setdTotalInterestPaid(double dTotalInterestPaid) {
+		this.dTotalInterestPaid = dTotalInterestPaid;
 	}
 
-	public int getTotalPaymentsMade() {
-		return iTotalPaymentsMade;
+	public double getdTotalPayments() {
+		return dTotalPayments;
 	}
 
-	public void setTotalPaymentsMade(int totalPaymentsMade) {
-		this.iTotalPaymentsMade = totalPaymentsMade;
+	public void setdTotalPayments(double dTotalPayments) {
+		this.dTotalPayments = dTotalPayments;
 	}
 	
 	public LinkedList<Payment> getLoanPayments() {

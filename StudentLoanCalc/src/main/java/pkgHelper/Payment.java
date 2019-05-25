@@ -5,17 +5,19 @@ import java.time.LocalDate;
 public class Payment {
 	private int iPaymentId;
 	private LocalDate dueDate;
+	private double dMonthlyPayment;
 	private double dInterestPayment;
 	private double dPrinciplePayment;
 	private double dExtraPayment;
 	private double dBalance;
 	
 	
-	public Payment(int iPaymentId, LocalDate dueDate, double dInterestPayment, double dPrinciplePayment,
-			double dExtraPayment, double dBalance) {
+	public Payment(int iPaymentId, LocalDate dueDate, double dMonthlyPayment, double dInterestPayment, 
+			double dPrinciplePayment, double dExtraPayment, double dBalance) {
 		super();
 		this.iPaymentId = iPaymentId;
 		this.dueDate = dueDate;
+		this.dMonthlyPayment = Math.round(dMonthlyPayment * 100.0) / 100.0;
 		this.dInterestPayment = Math.round(dInterestPayment * 100.0) / 100.0;
 		this.dPrinciplePayment = Math.round(dPrinciplePayment * 100.0) / 100.0;
 		this.dExtraPayment = Math.round(dExtraPayment * 100.0) / 100.0;
@@ -40,6 +42,16 @@ public class Payment {
 
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
+	}
+
+
+	public double getdMonthlyPayment() {
+		return dMonthlyPayment;
+	}
+
+
+	public void setdMonthlyPayment(double dMonthlyPayment) {
+		this.dMonthlyPayment = dMonthlyPayment;
 	}
 
 

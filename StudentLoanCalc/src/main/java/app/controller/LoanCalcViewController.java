@@ -94,7 +94,6 @@ public class LoanCalcViewController implements Initializable   {
 	public void initialize(URL location, ResourceBundle resources) {
 		lblTotalPaymentAmount.setVisible(false);
 		lblTotalInterestAmount.setVisible(false);
-//		paymentView.setEditable(false);
 	}
 
 	public void setMainApp(StudentCalc sc) {
@@ -140,11 +139,11 @@ public class LoanCalcViewController implements Initializable   {
 		
 		payments.setAll(loan.getLoanPayments());
 		
-		String totalPaymentsMade = Integer.toString(loan.getTotalPaymentsMade());
+		String totalPayments = Double.toString(loan.getdTotalPayments());
 		lblTotalPaymentAmount.setVisible(true);
-		lblTotalPaymentAmount.setText(totalPaymentsMade);
+		lblTotalPaymentAmount.setText(totalPayments);
 		
-		String totalInterestPaid = Double.toString(loan.getTotalInterestPaid());
+		String totalInterestPaid = Double.toString(loan.getdTotalInterestPaid());
 		lblTotalInterestAmount.setVisible(true);
 		lblTotalInterestAmount.setText(totalInterestPaid);
 		
@@ -153,6 +152,16 @@ public class LoanCalcViewController implements Initializable   {
 				new PropertyValueFactory<Payment, Integer>("iPaymentId"));
 		tcDueDate.setCellValueFactory(
 				new PropertyValueFactory<Payment, LocalDate>("dueDate"));
+		tcPayment.setCellValueFactory(
+				new PropertyValueFactory<Payment, Double>("dMonthlyPayment"));
+		tcAdditionalPayment.setCellValueFactory(
+				new PropertyValueFactory<Payment, Double>("dExtraPayment"));
+		tcInterest.setCellValueFactory(
+				new PropertyValueFactory<Payment, Double>("dInterestPayment"));
+		tcPrinciple.setCellValueFactory(
+				new PropertyValueFactory<Payment, Double>("dPrinciplePayment"));
+		tcBalance.setCellValueFactory(
+				new PropertyValueFactory<Payment, Double>("dBalance"));
 		
 		paymentView.setItems(payments);
 		
