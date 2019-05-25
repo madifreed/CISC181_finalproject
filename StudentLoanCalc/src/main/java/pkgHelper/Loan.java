@@ -49,7 +49,7 @@ public class Loan {
 		
 		LocalDate paymentDate = dueDate;
 		double loanBalance = dLoanAmount;
-		int month = 0;
+		int month = 1;
 		
 		while ((month < numberOfPayments) && (loanBalance > 0.0)) {
 			// Calculate monthly interest
